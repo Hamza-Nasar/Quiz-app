@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- ========== FORM SECTION ========== -->
+        <div id="userForm" class="form-wrapper">
+            <h2>Enter Your Details</h2>
+            <input type="text" id="name" placeholder="Full Name">
+            <input type="email" id="email" placeholder="Email">
+            <input type="text" id="roll" placeholder="Roll Number">
+            <input type="text" id="inst" placeholder="Institute Name">
+            <button onclick="showUserInfo()">Submit</button>
+        </div>
+        <!-- ========== USER INFO SECTION ========== -->
+        <div id="userInfo" class="info-wrapper hidden">
+            <h3>Welcome!</h3>
+            <p><strong>Name:</strong> <span id="showName"></span></p>
+            <p><strong>Email:</strong> <span id="showEmail"></span></p>
+            <p><strong>Roll #:</strong> <span id="showRoll"></span></p>
+            <p><strong>Institute:</strong> <span id="showInst"></span></p>
+            <button onclick="startQuiz()">Start Quiz</button>
+        </div>
+        <!-- ========== QUIZ SECTION ========== -->
+        <div id="quizBox" class="quiz-wrapper hidden">
+            <div class="quiz-header">
+                <h2 id="questionText">Question text</h2>
+                <div id="timer">⏱ 02:00</div>
+            </div>
+            <ul id="optionsList" class="options"></ul>
+            <div class="quiz-footer">
+                <p>Question <span id="currentQ">1</span> of <span id="totalQ">10</span></p>
+                <button id="nextBtn" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+        <!-- ========== RESULT SECTION ========== -->
+        <div id="resultBox" class="result-wrapper hidden">
+            <h2>Quiz Completed 🎉</h2>
+            <p>Total Questions: <span id="resTotal"></span></p>
+            <p>Correct Answers: <span id="resCorrect"></span></p>
+            <p>Wrong Answers: <span id="resWrong"></span></p>
+            <p>Percentage: <span id="resPercent"></span>%</p>
+            <p id="resMessage"></p>
+            <button onclick="restartQuiz()">Restart</button>
+        </div>
+    </div>
+    <script src="./app.js"></script>
+</body>
+
+</html>
