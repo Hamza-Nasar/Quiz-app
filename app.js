@@ -154,7 +154,7 @@ function restartQuiz() {
     questionIndex = 0;
     correct = 0;
     wrong = 0;
-    totalSeconds = 120;
+    totalSeconds = 300;
     resultBox.classList.add("hidden");
     userForm.classList.remove("hidden");
 }
