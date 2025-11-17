@@ -1,52 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Student Quiz App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Quiz App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <div class="container">
+<body class="bg-gradient-to-r from-blue-500 to-blue-300">
+    <div class="container py-5">
         <div id="userForm" class="form-wrapper">
-            <h2>Enter Your Details</h2>
-            <input type="text" id="name" placeholder="Full Name">
-            <input type="email" id="email" placeholder="Email">
-            <input type="text" id="roll" placeholder="Roll Number">
-            <input type="text" id="inst" placeholder="Institute Name">
-            <button onclick="showUserInfo()">Submit</button>
+            <h2 class="text-white mb-4">Enter Your Details</h2>
+            <input type="text" id="name" placeholder="Full Name" class="input input-bordered input-primary w-full mb-3 p-3">
+            <input type="email" id="email" placeholder="Email" class="input input-bordered input-primary w-full mb-3 p-3">
+            <input type="text" id="roll" placeholder="Roll Number" class="input input-bordered input-primary w-full mb-3 p-3">
+            <input type="text" id="inst" placeholder="Institute Name" class="input input-bordered input-primary w-full mb-3 p-3">
+            <input type="text" id="key" placeholder="Enter Key to Start Quiz" class="input input-bordered input-primary w-full mb-3 p-3">
+            <button class="btn btn-primary w-full py-3" onclick="showUserInfo()">Submit</button>
+            <p id="errorMsg" class="text-red-500 hidden">Invalid Key. Please try again!</p>
         </div>
+
         <div id="userInfo" class="info-wrapper hidden">
-            <h3>Welcome!</h3>
+            <h3 class="text-white mb-4">Welcome!</h3>
             <p><strong>Name:</strong> <span id="showName"></span></p>
             <p><strong>Email:</strong> <span id="showEmail"></span></p>
             <p><strong>Roll #:</strong> <span id="showRoll"></span></p>
             <p><strong>Institute:</strong> <span id="showInst"></span></p>
-            <button onclick="startQuiz()">Start Quiz</button>
+            <button class="btn btn-primary w-full py-3" onclick="startQuiz()">Start Quiz</button>
         </div>
+
         <div id="quizBox" class="quiz-wrapper hidden">
             <div class="quiz-header">
-                <h2 id="questionText">Question text</h2>
-                <div id="timer">⏱ 02:00</div>
+                <h2 id="questionText" class="text-white mb-4">Question text</h2>
+                <div id="timer" class="badge badge-warning">⏱ 02:00</div>
             </div>
-            <ul id="optionsList" class="options"></ul>
-            <div class="quiz-footer">
-                <p>Question <span id="currentQ">1</span> of <span id="totalQ">10</span></p>
-                <button id="nextBtn" onclick="nextQuestion()">Next</button>
+            <ul id="optionsList" class="options">
+                <!-- Options will be dynamically added -->
+            </ul>
+            <div class="quiz-footer mt-4">
+                <p class="text-white">Question <span id="currentQ">1</span> of <span id="totalQ">10</span></p>
+                <button id="nextBtn" class="btn btn-secondary w-full py-3" onclick="nextQuestion()">Next</button>
             </div>
         </div>
+
         <div id="resultBox" class="result-wrapper hidden">
-            <h2>Quiz Completed 🎉</h2>
+            <h2 class="text-white mb-4">Quiz Completed 🎉</h2>
             <p>Total Questions: <span id="resTotal"></span></p>
             <p>Correct Answers: <span id="resCorrect"></span></p>
             <p>Wrong Answers: <span id="resWrong"></span></p>
             <p>Percentage: <span id="resPercent"></span>%</p>
             <p id="resMessage"></p>
-            <button onclick="restartQuiz()">Restart</button>
+            <button class="btn btn-primary w-full py-3" onclick="restartQuiz()">Restart</button>
         </div>
     </div>
-    <script src="./app.js"></script>
-</body>
 
+    <!-- Include your JavaScript file at the end of body -->
+    <script src="app.js"></script>
+</body>
 </html>

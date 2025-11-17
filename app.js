@@ -21,44 +21,80 @@ const resPercent = document.getElementById("resPercent");
 const resMessage = document.getElementById("resMessage");
 
 let timer;
-let totalSeconds = 300;
+let totalSeconds = 600;  // 10 minutes for quiz duration
 let questionIndex = 0;
 let correct = 0;
 let wrong = 0;
 let selectedOption = null;
 
 const questions = [
-    { question: "HTML stands for?", options: ["Hyper Text Markup Language", "High Text Machine Language", "Hyperlinks Text Markup", "None"], answer: "Hyper Text Markup Language" },
-    { question: "Which type of JS language is?", options: ["Object-Oriented", "Object-Based", "Assembly", "High-level"], answer: "Object-Based" },
-    { question: "The 'function' and 'var' are known as?", options: ["Keywords", "Data types", "Declaration statements", "Prototypes"], answer: "Declaration statements" },
-    { question: "CSS stands for?", options: ["Creative Style Sheets", "Colorful Style Sheets", "Cascading Style Sheets", "Computer Style Sheets"], answer: "Cascading Style Sheets" },
-    { question: "Which symbol is used for comments in JS?", options: ["//", "/* */", "#", "<!-- -->"], answer: "//" },
-    { question: "Which company developed JavaScript?", options: ["Netscape", "Microsoft", "Google", "Sun Microsystems"], answer: "Netscape" },
-    { question: "Inside which HTML element do we put JS?", options: ["<javascript>", "<js>", "<script>", "<code>"], answer: "<script>" },
-    { question: "Which event occurs when user clicks?", options: ["onmouseclick", "onmouseover", "onchange", "onclick"], answer: "onclick" },
-    { question: "Which operator assigns a value?", options: ["=", "==", "===", "!="], answer: "=" },
-    { question: "What does NaN stand for?", options: ["Not a Name", "Not a Number", "New and Nice", "Name and Number"], answer: "Not a Number" }
+    { question: "What does HTML stand for?", options: ["Hyper Text Markup Language", "High Text Machine Language", "Hyperlinks Text Markup", "None"], answer: "Hyper Text Markup Language" },
+    { question: "Which HTML element is used for the largest heading?", options: ["<h1>", "<h2>", "<h3>", "<h6>"], answer: "<h1>" },
+    { question: "What does the <p> element represent?", options: ["Paragraph", "Picture", "Preformatted text", "Page"], answer: "Paragraph" },
+    { question: "Which HTML tag is used to create a hyperlink?", options: ["<a>", "<h1>", "<link>", "<url>"], answer: "<a>" },
+    { question: "Which attribute is used to specify the URL in the <a> tag?", options: ["href", "src", "url", "link"], answer: "href" },
+    { question: "Which tag is used to display images?", options: ["<img>", "<image>", "<picture>", "<src>"], answer: "<img>" },
+    { question: "What does the <br> tag do?", options: ["Creates a new line", "Creates a block", "Breaks a link", "Adds a border"], answer: "Creates a new line" },
+    { question: "Which tag is used to create a list of items?", options: ["<ol>", "<ul>", "<li>", "<list>"], answer: "<ul>" },
+    { question: "What is the correct HTML element for inserting a line break?", options: ["<break>", "<br>", "<lb>", "<line>"], answer: "<br>" },
+    { question: "Which tag is used to define an unordered list?", options: ["<ul>", "<ol>", "<li>", "<list>"], answer: "<ul>" },
+    { question: "Which HTML tag is used to specify a table row?", options: ["<tr>", "<th>", "<td>", "<table>"], answer: "<tr>" },
+    { question: "What attribute specifies the source of an image in the <img> tag?", options: ["src", "href", "link", "source"], answer: "src" },
+    { question: "Which tag is used to define a form in HTML?", options: ["<form>", "<input>", "<button>", "<submit>"], answer: "<form>" },
+    { question: "Which element is used to define an input field for a form?", options: ["<input>", "<field>", "<form>", "<text>"], answer: "<input>" },
+    { question: "What attribute is used to specify a placeholder in an input field?", options: ["placeholder", "value", "text", "hint"], answer: "placeholder" },
+    { question: "Which tag is used to define a division or section in an HTML document?", options: ["<section>", "<div>", "<span>", "<article>"], answer: "<div>" },
+    { question: "Which HTML element is used to define the title of the document?", options: ["<title>", "<head>", "<meta>", "<header>"], answer: "<title>" },
+    { question: "Which attribute is used to specify a table heading in HTML?", options: ["<th>", "<td>", "<tr>", "<head>"], answer: "<th>" },
+    { question: "What is the default value of the <ol> list?", options: ["Numbers", "Letters", "Bullets", "None"], answer: "Numbers" },
+    { question: "What is the default value of the <ul> list?", options: ["Numbers", "Letters", "Bullets", "None"], answer: "Bullets" },
+    { question: "Which HTML tag is used to define an ordered list?", options: ["<ol>", "<ul>", "<li>", "<list>"], answer: "<ol>" },
+    { question: "Which HTML tag is used to create a dropdown list?", options: ["<select>", "<input>", "<option>", "<dropdown>"], answer: "<select>" },
+    { question: "What is the correct HTML tag for a text area?", options: ["<textarea>", "<text>", "<input>", "<field>"], answer: "<textarea>" },
+    { question: "Which element is used to define a link in an HTML document?", options: ["<link>", "<a>", "<url>", "<href>"], answer: "<a>" },
+    { question: "Which tag is used to define a table cell?", options: ["<td>", "<th>", "<tr>", "<cell>"], answer: "<td>" },
+    { question: "Which tag is used for creating a form button?", options: ["<button>", "<input>", "<submit>", "<form-button>"], answer: "<button>" },
+    { question: "Which attribute defines a style for an element in HTML?", options: ["style", "class", "id", "type"], answer: "style" },
+    { question: "Which tag is used to display a table?", options: ["<table>", "<td>", "<tr>", "<th>"], answer: "<table>" }
 ];
 
 totalQ.textContent = questions.length;
-
 
 function showUserInfo() {
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const roll = document.getElementById("roll").value.trim();
     const inst = document.getElementById("inst").value.trim();
+    const key = document.getElementById("key").value.trim();
 
-    if (!name || !email || !roll || !inst) {
-        alert("Please fill all fields!");
+    const correctKey = "hamza29";  // Correct key to start the quiz
+
+    // Debugging logs to ensure values are captured
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("Roll:", roll);
+    console.log("Institute:", inst);
+    console.log("Key entered:", key);
+
+    // Checking if all fields are filled
+    if (!name || !email || !roll || !inst || !key) {
+        alert("Please fill all fields!");  // Alert for empty fields
         return;
     }
 
+    // Checking if the correct key is entered
+    if (key !== correctKey) {
+        alert("Invalid key. Please try again!");  // Alert for wrong key
+        return;
+    }
+
+    // If everything is correct, display user information
     showName.textContent = name;
     showEmail.textContent = email;
     showRoll.textContent = roll;
     showInst.textContent = inst;
 
+    // Hide the form and show the quiz information
     userForm.classList.add("hidden");
     userInfo.classList.remove("hidden");
 }
@@ -96,7 +132,7 @@ function selectOption(li, correctAns) {
 
 function nextQuestion() {
     if (!selectedOption) {
-        alert("Please select an option!");
+        alert("Please select an option!");  // Alert if no option is selected
         return;
     }
 
@@ -154,7 +190,7 @@ function restartQuiz() {
     questionIndex = 0;
     correct = 0;
     wrong = 0;
-    totalSeconds = 120;
+    totalSeconds = 600;  // Reset timer to 10 minutes
     resultBox.classList.add("hidden");
     userForm.classList.remove("hidden");
 }
