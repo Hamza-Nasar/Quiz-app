@@ -189,8 +189,10 @@ function showResult() {
 function restartQuiz() {
     questionIndex = 0;
     correct = 0;
-    wrong = 0;
+    wrong = 0; 
     totalSeconds = 600;  // Reset timer to 10 minutes
-    resultBox.classList.add("hidden");
+
+    totalSeconds = 300;
+    resultBox.classList.add("hidden");``
     userForm.classList.remove("hidden");
 }
