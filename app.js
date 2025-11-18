@@ -60,7 +60,15 @@ const questions = [
 
 totalQ.textContent = questions.length;
 
+// Prevent multiple attempts by setting a flag
+let quizAttempted = false;
+
 function showUserInfo() {
+    if (quizAttempted) {
+        alert("You have already completed the quiz!");
+        return;
+    }
+
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const roll = document.getElementById("roll").value.trim();
@@ -69,26 +77,17 @@ function showUserInfo() {
 
     const correctKey = "hamza29";  // Correct key to start the quiz
 
-    // Debugging logs to ensure values are captured
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Roll:", roll);
-    console.log("Institute:", inst);
-    console.log("Key entered:", key);
-
-    // Checking if all fields are filled
     if (!name || !email || !roll || !inst || !key) {
-        alert("Please fill all fields!");  // Alert for empty fields
+        alert("Please fill all fields!");
         return;
     }
 
-    // Checking if the correct key is entered
     if (key !== correctKey) {
-        alert("Invalid key. Please try again!");  // Alert for wrong key
+        alert("Invalid key. Please try again!");
         return;
     }
 
-    // If everything is correct, display user information
+    // Displaying user information
     showName.textContent = name;
     showEmail.textContent = email;
     showRoll.textContent = roll;
@@ -100,6 +99,11 @@ function showUserInfo() {
 }
 
 function startQuiz() {
+    if (quizAttempted) {
+        alert("You have already completed the quiz!");
+        return;
+    }
+
     userInfo.classList.add("hidden");
     quizBox.classList.remove("hidden");
     startTimer();
@@ -132,7 +136,7 @@ function selectOption(li, correctAns) {
 
 function nextQuestion() {
     if (!selectedOption) {
-        alert("Please select an option!");  // Alert if no option is selected
+        alert("Please select an option!");
         return;
     }
 
@@ -184,15 +188,11 @@ function showResult() {
     resWrong.textContent = wrong;
     resPercent.textContent = percent;
     resMessage.textContent = percent >= 60 ? "🎉 Congratulations, You Passed!" : "❌ Sorry, Try Again!";
+
+    // Locking quiz attempt after completion
+    quizAttempted = true;
 }
 
 function restartQuiz() {
-    questionIndex = 0;
-    correct = 0;
-    wrong = 0; 
-    totalSeconds = 600;  // Reset timer to 10 minutes
-
-    totalSeconds = 300;
-    resultBox.classList.add("hidden");``
-    userForm.classList.remove("hidden");
+    alert("You cannot retake the quiz.");
 }
